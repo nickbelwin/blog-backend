@@ -7,11 +7,11 @@ async function insertBlog(req,res){
     const {title, description}= req.body;
     try {
         if(title,description){
-            let res= await BlogData.create({
+            let response= await BlogData.create({
                 title,description
             })
-            console.log(res);
-            res.status(200).json({ message:"Success", data: res}); 
+            console.log(response);
+            res.status(200).json({ message:"Success", data: response}); 
         }
         
     } catch (error) { 
