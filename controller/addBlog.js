@@ -13,7 +13,6 @@ async function insertBlog(req,res){
             console.log(response);
             res.status(200).json({ message:"Success", data: response}); 
         }
-        
     } catch (error) { 
         console.log(error);
         res.status(400).send(error);
