@@ -12,7 +12,7 @@ router.get('/', (req,res)=>{
 
 });
 router.post('/insertBlog', insertBlog);
-router.post('/getBlogs', getBlogs);
+router.get('/getBlogs', getBlogs);
 
 
 module.exports=router;
