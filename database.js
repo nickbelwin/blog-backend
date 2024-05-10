@@ -1,12 +1,10 @@
-const { config } = require('dotenv');
+require('dotenv').config();
 const mongoose= require('mongoose');
-const MongoUrl= config.MONGO_URL;
+const MongoUrl= process.env.MONGO_URL;
 
 async function connectDatabase(){
-    console.log("=====>");
-    console.log(MongoUrl);
     try {
-        await mongoose.connect("mongodb+srv://belwalkarsarvesh4:GPwf6tnUcltETFYS@blogging.b1ca7yy.mongodb.net/blogging?retryWrites=true&w=majority&appName=blogging");
+        await mongoose.connect(`${MongoUrl}`);
         console.log("connection established with database"); 
     } catch (error) { 
         console.log(error); 
