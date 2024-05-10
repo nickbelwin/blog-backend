@@ -11,7 +11,7 @@ async function insertBlog(req,res){
                 title,description
             })
             console.log(res);
-            res.status(200).json({ success:"Success", data: res}); 
+            res.status(200).json({ message:"Success", data: res}); 
         }
         
     } catch (error) { 
@@ -24,7 +24,7 @@ async function insertBlog(req,res){
 async function getBlogs(req,res){
     try {
         const getData= await BlogData.find();
-        res.status(200).json({data: getData});
+        res.status(200).json({ message:"Success", data: getData});
         
     } catch (error) {
         console.log(error);
