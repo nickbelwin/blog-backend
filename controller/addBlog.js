@@ -21,4 +21,19 @@ async function insertBlog(req,res){
 
 }
 
-module.exports=insertBlog;
+async function getBlogs(req,res){
+    try {
+        const getData= await BlogData.find();
+        res.status(200).json({data: getData});
+        
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error);
+    }
+
+}
+
+module.exports= {
+    insertBlog,
+    getBlogs,
+}

@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 
-const insertBlog= require('../controller/addBlog');
+const {insertBlog , getBlogs }= require('../controller/addBlog');
 
 router.get('/', (req,res)=>{
     try {
@@ -12,5 +12,7 @@ router.get('/', (req,res)=>{
 
 });
 router.post('/insertBlog', insertBlog);
+router.post('/getBlogs', getBlogs);
+
 
 module.exports=router;
