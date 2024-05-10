@@ -11,10 +11,10 @@ async function insertBlog(req,res){
                 title,description
             })
             console.log(res);
-            res.status(200).json({ success:"Success", res}); 
+            res.status(200).json({ success:"Success", data: res}); 
         }
         
-    } catch (error) {
+    } catch (error) { 
         console.log(error);
         res.status(400).send(error);
     }
