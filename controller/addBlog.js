@@ -23,7 +23,8 @@ async function insertBlog(req,res){
 async function getBlogs(req,res){
     try {
         const getData= await BlogData.find();
-        res.status(200).json({ message:"Success", data: getData});
+        let result = getData.reverse();
+        res.status(200).json({ message:"Success", data: result});
         
     } catch (error) {
         console.log(error);
