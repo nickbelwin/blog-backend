@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads' })
+// const upload = require("../controller/addBlog");
 
 const addBlogs= require('../controller/addBlog');
 
@@ -13,7 +13,7 @@ router.get('/', (req,res)=>{
     }
 
 });
-router.post('/insertBlog',upload.single('image'), addBlogs.insertBlog );
+router.post('/insertBlog', addBlogs.upload.single('image'), addBlogs.insertBlog );
 router.get('/getBlogs', addBlogs.getBlogs );
 
 

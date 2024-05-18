@@ -5,15 +5,23 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
+const uploadDir = '/tmp/uploads';
+
+// Ensure the directory exists
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        return cb(null, "./uploads")
+        cb(null, uploadDir);
     },
     filename: function (req, file, cb) {
-        return cb(null, `${Date.now()}_${file.originalname}`)
+        cb(null, file.originalname);
     }
 });
 
+// Multer upload instance
 const upload = multer({ storage: storage });
 
 async function insertBlog(req, res) {
@@ -22,15 +30,15 @@ async function insertBlog(req, res) {
 
     const { title, date, author, category, description } = req.body;
     let image = req.file;
-
+    const imagePath = path.join('/tmp/uploads', image.filename); // Assuming filename is available in req.file
     // const imagePath = path.join(__dirname, "./uploads", image.path);
     // const imageData = fs.readFileSync(imagePath);
-    image = image.path;
-    console.log(title, date, author, category, image, description);
+    // image = image.path;
+    console.log(title, date, author, category, imagePath, description);
     try {
         if (title, description) {
             let response = await BlogData.create({
-                title, date, author, category, image, description
+                title, date, author, category, image: imagePath, description
             })
             console.log(response);
             res.status(200).json({ message: "Success", data: response });
@@ -58,4 +66,5 @@ async function getBlogs(req, res) {
 module.exports = {
     insertBlog,
     getBlogs,
+    upload,
 }
