@@ -16,7 +16,7 @@ cloudinary.config({
 console.log(process.env.CLOUDINARY_CLOUD_NAME, process.env.CLOUDINARY_API_KEY,
     process.env.CLOUDINARY_API_SECRET,);
 
-    // Set up Cloudinary storage
+// Set up Cloudinary storage
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
@@ -65,23 +65,48 @@ async function insertBlog(req, res) {
     // let image= 
 
     const { title, date, author, category, description } = req.body;
-    const image = req.file.path;
+    const image = req?.file?.path;
     // const imagePath = path.join('/tmp/uploads', image.filename); // Assuming filename is available in req.file
     // const imagePath = path.join(__dirname, "./uploads", image.path);
     // const imageData = fs.readFileSync(imagePath);
     // image = image.path;
     console.log(title, date, author, category, image, description);
-    try {
-        if (title, description) {
-            let response = await BlogData.create({
-                title, date, author, category, image, description
-            })
-            console.log(response);
-            res.status(200).json({ message: "Success", data: response });
+    if (!title) {
+        res.status(400).json({ message: "Title is required!" });
+    }
+    else if (!author) {
+        res.status(400).json({ message: "Author is required!" });
+    }
+    else if (!category) {
+        res.status(400).json({ message: "Category is required!" });
+    }
+    else if (!date) {
+        res.status(400).json({ message: "Date is required!" });
+    }
+    else if (!image) {
+        res.status(400).json({ message: "Image is required!" });
+    }
+    else if (!description) {
+        res.status(400).json({ message: "Description is required!" });
+    }
+    else if (title && date && author && category && image && description) {
+        try {
+            if (title, description) {
+                let response = await BlogData.create({
+                    title, date, author, category, image, description
+                })
+                console.log(response);
+                res.status(200).json({ message: "Success", data: response });
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(400).json(error);
         }
-    } catch (error) {
-        console.log(error);
-        res.status(400).json(error);
+
+    }
+    else{
+        res.status(400).json({ message: "Internal server error!" });
+        
     }
 
 }
