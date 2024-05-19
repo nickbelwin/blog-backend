@@ -89,7 +89,7 @@ async function insertBlog(req, res) {
     else if (!description) {
         res.status(400).json({ message: "Description is required!" });
     }
-    else if (title && date && author && category && image && description) {
+    else if (title && date && author && Array.isArray(category) && category?.length >= 1 && image && description) {
         try {
             if (title, description) {
                 let response = await BlogData.create({
@@ -104,9 +104,9 @@ async function insertBlog(req, res) {
         }
 
     }
-    else{
+    else {
         res.status(400).json({ message: "Internal server error!" });
-        
+
     }
 
 }
@@ -114,7 +114,9 @@ async function insertBlog(req, res) {
 async function getBlogs(req, res) {
     try {
         const getData = await BlogData.find();
+        console.log("====>")
         let result = getData.reverse();
+        console.log(result);
         res.status(200).json({ message: "Success", data: result });
 
     } catch (error) {
