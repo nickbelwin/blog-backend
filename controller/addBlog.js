@@ -111,6 +111,8 @@ async function insertBlog(req, res) {
 
 }
 
+// get all blogs
+
 async function getBlogs(req, res) {
     try {
         const getData = await BlogData.find();
@@ -124,10 +126,25 @@ async function getBlogs(req, res) {
 
 }
 
+// get blog by id
+
+async function getBlogById(req,res){
+    try {
+        const blog = await BlogData.findById(req.params.id);
+        if (!blog) {
+            return res.status(404).send({ message: 'Blog not found' });
+        }
+        res.status(200).send({message:"success", data:blog});
+    } catch (error) {
+        res.status(500).send({ message: 'Server error', error });
+    }
+}
+
 
 
 module.exports = {
     insertBlog,
     getBlogs,
     upload,
+    getBlogById,
 }

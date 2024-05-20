@@ -15,6 +15,7 @@ router.get('/', (req,res)=>{
 });
 router.post('/insertBlog', addBlogs.upload.single('image'), addBlogs.insertBlog );
 router.get('/getBlogs', addBlogs.getBlogs );
+router.get('/getBlog/:id', addBlogs.getBlogById);
 
 
 module.exports=router;
