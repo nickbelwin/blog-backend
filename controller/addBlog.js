@@ -140,6 +140,29 @@ async function getBlogById(req,res){
     }
 }
 
+// get blogs by category
+
+async function getBlogByCategory(req,res){
+    let cate= req.params.category;
+    console.log(cate);
+    const blog = await BlogData.find();
+    let filterCate = blog?.filter((val)=>{
+        if(val?.category.includes(cate)){
+            return val;
+        }
+    });
+
+    try {
+        
+        if (!filterCate?.length===0) {
+            return res.status(404).send({ message: 'Blogs not found' });
+        }
+        res.status(200).send({message:"success", data:filterCate});
+    } catch (error) {
+        res.status(500).send({ message: 'Server error', error });
+    }
+}
+
 
 
 module.exports = {
@@ -147,4 +170,5 @@ module.exports = {
     getBlogs,
     upload,
     getBlogById,
+    getBlogByCategory,
 }
